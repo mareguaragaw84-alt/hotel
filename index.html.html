@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abyssinia Grand Hotel & Tourism | ማረጉ አራጋው (Maregu Aragaw)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#fffbeedb',
+                            100: '#fef3c7',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            700: '#b45309',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .hero-bg {
+            background-image: linear-gradient(to bottom, rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.85)), 
+                              url('https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&q=80&w=1920');
+            background-size: cover;
+            background-position: center;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 min-h-screen flex flex-col justify-between">
+
+    <!-- ================= NAVBAR ================= -->
+    <header class="sticky top-0 z-40 backdrop-blur-md bg-white/90 dark:bg-slate-900/90 border-b border-slate-200 dark:border-slate-800 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Logo -->
+                <a href="#home" class="flex items-center space-x-3">
+                    <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-amber-600 to-yellow-400 flex items-center justify-center text-white font-black text-xl shadow-lg shadow-amber-500/30">
+                        አበ
+                    </div>
+                    <div>
+                        <span class="text-lg sm:text-xl font-extrabold bg-gradient-to-r from-amber-600 via-amber-500 to-yellow-500 bg-clip-text text-transparent">
+                            Abyssinia Grand
+                        </span>
+                        <p class="text-[10px] text-amber-600 dark:text-amber-400 font-semibold uppercase tracking-wider" data-lang="adminSub">
+                            Main Admin: Maregu Aragaw
+                        </p>
+                    </div>
+                </a>
+
+                <!-- Desktop Links -->
+                <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold">
+                    <a href="#home" class="hover:text-amber-500 transition-colors" data-lang="navHome">Home</a>
+                    <a href="#destinations" class="hover:text-amber-500 transition-colors" data-lang="navDestinations">Tours & Destinations</a>
+                    <a href="#rooms" class="hover:text-amber-500 transition-colors" data-lang="navRooms">Rooms & Suites</a>
+                    <a href="#experiences" class="hover:text-amber-500 transition-colors" data-lang="navExperiences">Experiences</a>
+                    <a href="#admin" class="hover:text-amber-500 transition-colors" data-lang="navAdmin">About Admin</a>
+                </nav>
+
+                <!-- Actions: Language & Theme Toggle -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <!-- Language Toggle -->
+                    <button id="langToggleBtn" onclick="toggleLanguage()" class="flex items-center space-x-2 px-3 py-1.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 hover:border-amber-500 text-xs font-bold transition-all">
+                        <i class="fa-solid fa-globe text-amber-500"></i>
+                        <span id="langLabel">አማርኛ</span>
+                    </button>
+
+                    <!-- Theme Toggle -->
+                    <button id="themeToggleBtn" onclick="toggleDarkMode()" class="p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-yellow-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">
+                        <i id="themeIcon" class="fa-solid fa-moon"></i>
+                    </button>
+
+                    <!-- Book Now Button -->
+                    <button onclick="openBookingModal('General Reservation')" class="bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-white font-bold px-5 py-2.5 rounded-xl text-xs shadow-md shadow-amber-500/20 transition-all transform hover:-translate-y-0.5" data-lang="navBook">
+                        Book Now
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="flex md:hidden items-center space-x-2">
+                    <button onclick="toggleLanguage()" class="px-2.5 py-1 border rounded-lg text-xs font-bold border-amber-500 text-amber-500">
+                        <span id="mobileLangLabel">አማ</span>
+                    </button>
+                    <button onclick="toggleDarkMode()" class="p-2 border rounded-lg text-xs dark:text-yellow-400">
+                        <i id="mobileThemeIcon" class="fa-solid fa-moon"></i>
+                    </button>
+                    <button onclick="toggleMobileMenu()" class="p-2 text-2xl text-slate-700 dark:text-slate-200">
+                        <i id="mobileMenuIcon" class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div id="mobileMenu" class="hidden md:hidden border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-6 py-6 space-y-4">
+            <a href="#home" onclick="toggleMobileMenu()" class="block font-semibold py-1" data-lang="navHome">Home</a>
+            <a href="#destinations" onclick="toggleMobileMenu()" class="block font-semibold py-1" data-lang="navDestinations">Tours & Destinations</a>
+            <a href="#rooms" onclick="toggleMobileMenu()" class="block font-semibold py-1" data-lang="navRooms">Rooms & Suites</a>
+            <a href="#experiences" onclick="toggleMobileMenu()" class="block font-semibold py-1" data-lang="navExperiences">Experiences</a>
+            <a href="#admin" onclick="toggleMobileMenu()" class="block font-semibold py-1" data-lang="navAdmin">About Admin</a>
+            <button onclick="toggleMobileMenu(); openBookingModal('Mobile Reservation');" class="w-full bg-amber-500 text-white font-bold py-3 rounded-xl text-sm shadow-md" data-lang="navBook">
+                Book Now
+            </button>
+        </div>
+    </header>
+
+    <!-- ================= HERO SECTION ================= -->
+    <section id="home" class="relative hero-bg min-h-[85vh] flex items-center justify-center px-4 py-16 text-white text-center">
+        <div class="max-w-4xl mx-auto space-y-6">
+            
+            <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-amber-500/20 border border-amber-400/30 backdrop-blur-md">
+                <i class="fa-solid fa-award text-amber-400 text-sm"></i>
+                <span class="text-xs sm:text-sm font-semibold text-amber-300" data-lang="heroBadge">
+                    Ethiopia's Premier Hotel & Tour Operator
+                </span>
+            </div>
+
+            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight" data-lang="heroTitle">
+                Discover the Magic of Ancient & Modern Ethiopia
+            </h1>
+
+            <p class="text-base sm:text-lg text-slate-200 font-light max-w-2xl mx-auto leading-relaxed" data-lang="heroSubtitle">
+                Experience world-class luxury accommodations and unforgettable authentic Ethiopian tour packages.
+            </p>
+
+            <div class="flex flex-col sm:flex-row justify-center gap-4 pt-4">
+                <button onclick="openBookingModal('Hotel Room')" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-8 py-4 rounded-xl text-sm shadow-xl shadow-amber-500/30 transition-all transform hover:-translate-y-1" data-lang="heroBtn1">
+                    Book Accommodation
+                </button>
+                <a href="#destinations" class="glass-card hover:bg-white/20 text-white font-semibold px-8 py-4 rounded-xl text-sm transition-all" data-lang="heroBtn2">
+                    Explore Tours
+                </a>
+            </div>
+
+            <!-- SEARCH BAR -->
+            <div class="mt-12 max-w-3xl mx-auto p-4 rounded-2xl bg-white/95 dark:bg-slate-900/95 text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-slate-800 shadow-2xl text-left">
+                <form onsubmit="event.preventDefault(); openBookingModal('Search Query');" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div>
+                        <label class="block text-[11px] font-bold uppercase text-slate-400 mb-1" data-lang="searchType">Service Type</label>
+                        <select class="w-full p-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs font-medium">
+                            <option data-lang="typeHotel">Hotel Room</option>
+                            <option data-lang="typeTour">Tour Package</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold uppercase text-slate-400 mb-1" data-lang="searchCheckin">Check-in</label>
+                        <input type="date" class="w-full p-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs font-medium">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold uppercase text-slate-400 mb-1" data-lang="searchGuests">Guests</label>
+                        <select class="w-full p-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs font-medium">
+                            <option>1 Guest</option>
+                            <option>2 Guests</option>
+                            <option>Family (3-5)</option>
+                            <option>Group (6+)</option>
+                        </select>
+                    </div>
+                    <div class="flex items-end">
+                        <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-white py-2.5 rounded-lg font-bold text-xs flex items-center justify-center space-x-2 shadow-md">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <span data-lang="searchBtn">Check Availability</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ================= FEATURED TOUR PACKAGES ================= -->
+    <section id="destinations" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-14">
+            <span class="text-amber-500 font-extrabold uppercase tracking-widest text-xs" data-lang="destSubtitleTag">Historic & Natural Wonders</span>
+            <h2 class="text-3xl sm:text-4xl font-black mt-2 mb-4" data-lang="destTitle">Top Ethiopian Tour Packages</h2>
+            <p class="text-slate-500 dark:text-slate-400 text-sm" data-lang="destDesc">Explore UNESCO heritage sites, ancient monoliths, active volcanoes, and dramatic mountain landscapes with expert local guides.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <!-- Lalibela Card with Authentic Saint George Rock Church Photo -->
+            <div class="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xl flex flex-col hover:-translate-y-2 transition-all">
+                <div class="relative h-56">
+                    <img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&q=80&w=800" alt="Lalibela Rock-Hewn Church Bet Giyorgis" class="w-full h-full object-cover">
+                    <span class="absolute top-3 right-3 bg-slate-950/80 text-amber-400 font-bold text-xs px-3 py-1 rounded-full"><i class="fa-solid fa-star text-amber-400 mr-1"></i>4.9</span>
+                </div>
+                <div class="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                        <p class="text-xs font-semibold text-amber-500 mb-1"><i class="fa-solid fa-location-dot mr-1"></i><span data-lang="lalibelaLoc">ቅ/ላሊበላ / ኢትዮጵያ</span></p>
+                        <h3 class="font-extrabold text-xl mb-2" data-lang="tour1Title">Lalibela Rock-Hewn Churches</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mb-4" data-lang="tour1Desc">Experience 11 magnificent 12th-century monolithic churches carved out of solid volcanic rock.</p>
+                    </div>
+                    <div>
+                        <div class="flex justify-between items-baseline mb-4 border-t pt-3 dark:border-slate-800">
+                            <span class="text-xs text-slate-400">3 Days / 2 Nights</span>
+                            <span class="text-lg font-black text-amber-500">$450 / 25,000 ETB</span>
+                        </div>
+                        <button onclick="openBookingModal('Tour: Lalibela Rock-Hewn Churches')" class="w-full py-2.5 border border-amber-500 text-amber-500 hover:bg-amber-500 hover:text-white font-bold text-xs rounded-xl transition-all" data-lang="bookTour">Book Tour</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Simien Mountains Card -->
+            <div class="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xl flex flex-col hover:-translate-y-2 transition-all">
+                <div class="relative h-56">
+                    <img src="https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&q=80&w=800" alt="Simien Mountains" class="w-full h-full object-cover">
+                    <span class="absolute top-3 right-3 bg-slate-950/80 text-amber-400 font-bold text-xs px-3 py-1 rounded-full"><i class="fa-solid fa-star text-amber-400 mr-1"></i>5.0</span>
+                </div>
+                <div class="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                        <p class="text-xs font-semibold text-amber-500 mb-1"><i class="fa-solid fa-location-dot mr-1"></i>Gonder, Ethiopia</p>
+                        <h3 class="font-extrabold text-xl mb-2" data-lang="tour2Title">Simien Mountains National Park</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mb-4" data-lang="tour2Desc">Trek across dramatic jagged peaks and witness rare endemic Gelada Baboons and Walia Ibex.</p>
+                    </div>
+                    <div>
+                        <div class="flex justify-between items-baseline mb-4 border-t pt-3 dark:border-slate-800">
+                            <span class="text-xs text-slate-400">4 Days / 3 Nights</span>
+                            <span class="text-lg font-black text-amber-500">$580 / 32,000 ETB</span>
+                        </div>
+                        <button onclick="openBookingModal('Tour: Simien Mountains')" class="w-full py-2.5 border border-amber-500 text-amber-500 hover:bg-amber-500 hover:text-white font-bold text-xs rounded-xl transition-all" data-lang="bookTour">Book Tour</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Danakil Depression Card -->
+            <div class="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xl flex flex-col hover:-translate-y-2 transition-all">
+                <div class="relative h-56">
+                    <img src="https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&q=80&w=800" alt="Danakil" class="w-full h-full object-cover">
+                    <span class="absolute top-3 right-3 bg-slate-950/80 text-amber-400 font-bold text-xs px-3 py-1 rounded-full"><i class="fa-solid fa-star text-amber-400 mr-1"></i>4.8</span>
+                </div>
+                <div class="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                        <p class="text-xs font-semibold text-amber-500 mb-1"><i class="fa-solid fa-location-dot mr-1"></i>Afar Region</p>
+                        <h3 class="font-extrabold text-xl mb-2" data-lang="tour3Title">Danakil Depression & Erta Ale</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mb-4" data-lang="tour3Desc">Venture into one of the lowest and hottest places on Earth with active lava lakes and colorful sulfur springs.</p>
+                    </div>
+                    <div>
+                        <div class="flex justify-between items-baseline mb-4 border-t pt-3 dark:border-slate-800">
+                            <span class="text-xs text-slate-400">3 Days / 2 Nights</span>
+                            <span class="text-lg font-black text-amber-500">$620 / 35,000 ETB</span>
+                        </div>
+                        <button onclick="openBookingModal('Tour: Danakil Depression')" class="w-full py-2.5 border border-amber-500 text-amber-500 hover:bg-amber-500 hover:text-white font-bold text-xs rounded-xl transition-all" data-lang="bookTour">Book Tour</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ================= HOTEL ROOMS & SUITES ================= -->
+    <section id="rooms" class="py-20 bg-slate-100/70 dark:bg-slate-900/50 border-y border-slate-200 dark:border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-14">
+                <span class="text-amber-500 font-extrabold uppercase tracking-widest text-xs" data-lang="roomsTag">Unparalleled Comfort</span>
+                <h2 class="text-3xl sm:text-4xl font-black mt-2 mb-4" data-lang="roomsTitle">Luxury Accommodations</h2>
+                <p class="text-slate-500 dark:text-slate-400 text-sm" data-lang="roomsDesc">Relax in elegantly decorated suites blending authentic Ethiopian craftsmanship with modern luxury amenities.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Suite 1 -->
+                <div class="rounded-2xl overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl flex flex-col">
+                    <img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&q=80&w=800" alt="Presidential Suite" class="h-60 w-full object-cover">
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-bold text-xl mb-2" data-lang="room1Title">Royal Presidential Suite</h3>
+                            <p class="text-2xl font-black text-amber-500 mb-4">$280 <span class="text-xs font-normal text-slate-400">/ night</span></p>
+                            <ul class="space-y-2 text-xs text-slate-500 dark:text-slate-400 mb-6">
+                                <li><i class="fa-solid fa-check text-amber-500 mr-2"></i>King Size Bed & Private Balcony</li>
+                                <li><i class="fa-solid fa-check text-amber-500 mr-2"></i>Jacuzzi & VIP Executive Lounge</li>
+                                <li><i class="fa-solid fa-check text-amber-500 mr-2"></i>Free Breakfast & Airport Shuttle</li>
+                            </ul>
+                        </div>
+                        <button onclick="openBookingModal('Room: Royal Presidential Suite')" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 rounded-xl text-xs transition-all" data-lang="bookRoom">Reserve Suite</button>
+                    </div>
+                </div>
+
+                <!-- Suite 2 -->
+                <div class="rounded-2xl overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl flex flex-col">
+                    <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&q=80&w=800" alt="Deluxe Room" class="h-60 w-full object-cover">
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-bold text-xl mb-2" data-lang="room2Title">Luxury King Deluxe</h3>
+                            <p class="text-2xl font-black text-amber-500 mb-4">$180 <span class="text-xs font-normal text-slate-400">/ night</span></p>
+                            <ul class="space-y-2 text-xs text-slate-500 dark:text-slate-400 mb-6">
+                                <li><i class="fa-solid fa-check text-amber-500 mr-2"></i>City Skyline View</li>
+                                <li><i class="fa-solid fa-check text-amber-500 mr-2"></i>Free High-Speed Wi-Fi & Mini Bar</li>
+                                <li><i class="fa-solid fa-check text-amber-500 mr-2"></i>24/7 Room Service & Spa Access</li>
+                            </ul>
+                        </div>
+                        <button onclick="openBookingModal('Room: Luxury King Deluxe')" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 rounded-xl text-xs transition-all" data-lang="bookRoom">Reserve Suite</button>
+                    </div>
+                </div>
+
+                <!-- Suite 3 -->
+                <div class="rounded-2xl overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl flex flex-col">
+                    <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&q=80&w=800" alt="Family Suite" class="h-60 w-full object-cover">
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-bold text-xl mb-2" data-lang="room3Title">Executive Family Suite</h3>
+                            <p class="text-2xl font-black text-amber-500 mb-4">$220 <span class="text-xs font-normal text-slate-400">/ night</span></p>
+                            <ul class="space-y-2 text-xs text-slate-500 dark:text-slate-400 mb-6">
+                                <li><i class="fa-solid fa-check text-amber-500 mr-2"></i>2 Queen Beds & Kitchenette</li>
+                                <li><i class="fa-solid fa-check text-amber-500 mr-2"></i>Spacious Living Area</li>
+                                <li><i class="fa-solid fa-check text-amber-500 mr-2"></i>Complimentary Airport Pickup</li>
+                            </ul>
+                        </div>
+                        <button onclick="openBookingModal('Room: Executive Family Suite')" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 rounded-xl text-xs transition-all" data-lang="bookRoom">Reserve Suite</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= CULTURAL EXPERIENCES ================= -->
+    <section id="experiences" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-14">
+            <span class="text-amber-500 font-extrabold uppercase tracking-widest text-xs" data-lang="expTag">Authentic Culture</span>
+            <h2 class="text-3xl sm:text-4xl font-black mt-2 mb-4" data-lang="expTitle">Ethiopian Cultural Experiences</h2>
+            <p class="text-slate-500 dark:text-slate-400 text-sm" data-lang="expDesc">Immerse yourself in centuries-old traditions, coffee ceremonies, traditional dances, and gourmet cuisine.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-md">
+                <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center text-xl mb-4">
+                    <i class="fa-solid fa-mug-hot"></i>
+                </div>
+                <h3 class="font-bold text-lg mb-2" data-lang="exp1Title">Traditional Coffee Ceremony</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed" data-lang="exp1Desc">Experience freshly roasted coffee prepared with frankincense, popcorn, and traditional etiquette.</p>
+            </div>
+
+            <div class="p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-md">
+                <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center text-xl mb-4">
+                    <i class="fa-solid fa-utensils"></i>
+                </div>
+                <h3 class="font-bold text-lg mb-2" data-lang="exp2Title">Ethiopian Culinary Delights</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed" data-lang="exp2Desc">Sample flavorful Injera with Doro Wat, Kitfo, and gourmet local dishes crafted by top chefs.</p>
+            </div>
+
+            <div class="p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-md">
+                <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center text-xl mb-4">
+                    <i class="fa-solid fa-music"></i>
+                </div>
+                <h3 class="font-bold text-lg mb-2" data-lang="exp3Title">Live Traditional Music</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed" data-lang="exp3Desc">Enjoy evening performances featuring shoulder-dancing (Eskista) and authentic instrumentals.</p>
+            </div>
+
+            <div class="p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-md">
+                <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center text-xl mb-4">
+                    <i class="fa-solid fa-person-hiking"></i>
+                </div>
+                <h3 class="font-bold text-lg mb-2" data-lang="exp4Title">Guided Wildlife Safaris</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed" data-lang="exp4Desc">Professional rangers leading mountain treks to view rare flora and fauna in protected parks.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= MAIN ADMIN SECTION (MAREGU ARAGAW) ================= -->
+    <section id="admin" class="py-20 bg-amber-500/5 dark:bg-slate-900/80 border-t border-slate-200 dark:border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Admin Card -->
+                <div class="lg:col-span-5">
+                    <div class="p-8 rounded-3xl border border-amber-300 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-2xl text-center relative overflow-hidden">
+                        <div class="w-32 h-32 rounded-full p-1 bg-gradient-to-tr from-amber-500 to-yellow-400 mx-auto mb-4 shadow-xl">
+                            <div class="w-full h-full rounded-full bg-slate-900 flex items-center justify-center text-amber-400 font-black text-4xl">
+                                ማአ
+                            </div>
+                        </div>
+
+                        <span class="text-xs font-bold text-amber-500 uppercase tracking-widest block mb-1" data-lang="adminRole">Main Admin & Founder</span>
+                        <h3 class="text-2xl font-black">Maregu Aragaw (ማረጉ አራጋው)</h3>
+                        <p class="text-xs text-slate-400 mb-6">Abyssinia Grand Hotel & Tourism</p>
+
+                        <div class="text-left space-y-3 border-t pt-6 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-300">
+                            <div class="flex items-center space-x-3">
+                                <i class="fa-solid fa-phone text-amber-500"></i>
+                                <a href="tel:0987781317" class="hover:text-amber-500 font-bold">0987781317</a>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fa-solid fa-envelope text-amber-500"></i>
+                                <a href="mailto:mareguaragaw84@gmail.com" class="hover:text-amber-500">mareguaragaw84@gmail.com</a>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fa-solid fa-location-dot text-amber-500"></i>
+                                <span data-lang="adminAddress">ቅ/ላሊበላ / ኢትዮጵያ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Admin Vision & Social Media Links -->
+                <div class="lg:col-span-7 space-y-6">
+                    <span class="text-amber-500 font-bold uppercase tracking-widest text-xs" data-lang="adminHeaderTag">Leadership & Hospitality</span>
+                    <h2 class="text-3xl sm:text-4xl font-black" data-lang="adminBioTitle">Welcome from Main Admin Maregu Aragaw (ማረጉ አራጋው)</h2>
+                    
+                    <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed" data-lang="adminBioText">
+                        "Welcome to Abyssinia Grand Hotel & Tours. Managed directly by Maregu Aragaw (ማረጉ አራጋው), our vision is to give every guest an unforgettable Ethiopian holiday—combining rich historic culture with top-tier luxury accommodations, strict safety standards, and genuine Ethiopian warmth."
+                    </p>
+
+                    <!-- SOCIAL MEDIA BUTTONS LINKED TO 0987781317 -->
+                    <div class="border-t pt-6 dark:border-slate-800">
+                        <h4 class="font-bold text-xs uppercase text-slate-400 mb-4" data-lang="socialTitle">Connect Directly with Maregu Aragaw:</h4>
+                        
+                        <div class="flex flex-wrap gap-3">
+                            <a href="tel:0987781317" class="px-4 py-2.5 rounded-xl bg-amber-500 text-slate-950 font-bold text-xs flex items-center space-x-2 shadow-md hover:bg-amber-600 hover:text-white transition-all">
+                                <i class="fa-solid fa-phone"></i><span>Call 0987781317</span>
+                            </a>
+                            <a href="https://wa.me/251987781317" target="_blank" class="px-4 py-2.5 rounded-xl bg-emerald-600 text-white font-medium text-xs flex items-center space-x-2 shadow-md hover:opacity-90">
+                                <i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span>
+                            </a>
+                            <a href="https://t.me/+251987781317" target="_blank" class="px-4 py-2.5 rounded-xl bg-sky-500 text-white font-medium text-xs flex items-center space-x-2 shadow-md hover:opacity-90">
+                                <i class="fa-brands fa-telegram"></i><span>Telegram</span>
+                            </a>
+                            <a href="https://facebook.com" target="_blank" class="px-4 py-2.5 rounded-xl bg-blue-600 text-white font-medium text-xs flex items-center space-x-2 shadow-md hover:opacity-90">
+                                <i class="fa-brands fa-facebook-f"></i><span>Facebook</span>
+                            </a>
+                            <a href="https://instagram.com" target="_blank" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-500 text-white font-medium text-xs flex items-center space-x-2 shadow-md hover:opacity-90">
+                                <i class="fa-brands fa-instagram"></i><span>Instagram</span>
+                            </a>
+                            <a href="https://linkedin.com" target="_blank" class="px-4 py-2.5 rounded-xl bg-blue-700 text-white font-medium text-xs flex items-center space-x-2 shadow-md hover:opacity-90">
+                                <i class="fa-brands fa-linkedin-in"></i><span>LinkedIn</span>
+                            </a>
+                            <a href="https://tiktok.com" target="_blank" class="px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white font-medium text-xs flex items-center space-x-2 shadow-md hover:opacity-90">
+                                <i class="fa-brands fa-tiktok"></i><span>TikTok</span>
+                            </a>
+                            <a href="https://youtube.com" target="_blank" class="px-4 py-2.5 rounded-xl bg-red-600 text-white font-medium text-xs flex items-center space-x-2 shadow-md hover:opacity-90">
+                                <i class="fa-brands fa-youtube"></i><span>YouTube</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= RESERVATION MODAL ================= -->
+    <div id="bookingModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
+        <div class="relative w-full max-w-lg p-6 sm:p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl text-slate-800 dark:text-slate-100">
+            
+            <button onclick="closeBookingModal()" class="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-600 dark:hover:text-white">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+
+            <div id="modalFormContainer">
+                <h3 class="text-2xl font-black mb-1" data-lang="modalTitle">Complete Your Booking</h3>
+                <p class="text-xs text-slate-400 mb-6" data-lang="modalSub">Reserve your hotel room or tour package in seconds.</p>
+
+                <form onsubmit="handleModalSubmit(event)" class="space-y-4 text-xs">
+                    <div>
+                        <label class="block font-bold text-slate-500 mb-1" data-lang="modalName">Full Name</label>
+                        <input type="text" required placeholder="e.g. Abebe Bikila" class="w-full p-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 font-medium">
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block font-bold text-slate-500 mb-1" data-lang="modalPhone">Phone Number</label>
+                            <input type="tel" required placeholder="0987781317" class="w-full p-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 font-medium">
+                        </div>
+                        <div>
+                            <label class="block font-bold text-slate-500 mb-1" data-lang="modalPayment">Payment Option</label>
+                            <select class="w-full p-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 font-medium">
+                                <option>Telebirr (ቴሌብር)</option>
+                                <option>CBE Birr / Bank Transfer</option>
+                                <option>Credit / Debit Card</option>
+                                <option>Pay at Reception</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block font-bold text-slate-500 mb-1" data-lang="modalSelected">Selected Package / Room</label>
+                        <input id="selectedPackageInput" type="text" readonly class="w-full p-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 text-amber-500 font-bold">
+                    </div>
+
+                    <button type="submit" class="w-full py-3.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-sm shadow-lg shadow-amber-500/30 transition-all" data-lang="modalConfirm">
+                        Confirm Reservation
+                    </button>
+                </form>
+            </div>
+
+            <!-- Success Alert -->
+            <div id="modalSuccessMsg" class="hidden text-center py-8 space-y-4">
+                <div class="w-16 h-16 bg-emerald-500/20 text-emerald-500 rounded-full flex items-center justify-center text-3xl mx-auto">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <h3 class="text-2xl font-bold">Reservation Received!</h3>
+                <p class="text-xs text-slate-400" data-lang="successText">Thank you! Our reservation team managed by Maregu Aragaw will contact you shortly.</p>
+                <button onclick="closeBookingModal()" class="px-6 py-2.5 rounded-xl bg-amber-500 text-white font-bold text-xs">Close</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="bg-slate-950 text-white border-t border-slate-800 pt-14 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-xl bg-amber-500 text-slate-950 font-bold flex items-center justify-center text-xl">አበ</div>
+                        <span class="text-xl font-black text-amber-500">Abyssinia Grand</span>
+                    </div>
+                    <p class="text-xs text-slate-400 leading-relaxed" data-lang="footerDesc">
+                        Your premier luxury accommodation and tour operator in Ethiopia.
+                    </p>
+                    <p class="text-xs font-semibold text-amber-400">
+                        Main Admin: Maregu Aragaw (ማረጉ አራጋው)
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-slate-300" data-lang="quickLinks">Quick Links</h4>
+                    <ul class="space-y-2 text-xs text-slate-400">
+                        <li><a href="#home" class="hover:text-amber-400" data-lang="navHome">Home</a></li>
+                        <li><a href="#destinations" class="hover:text-amber-400" data-lang="navDestinations">Tours & Destinations</a></li>
+                        <li><a href="#rooms" class="hover:text-amber-400" data-lang="navRooms">Rooms & Suites</a></li>
+                        <li><a href="#admin" class="hover:text-amber-400" data-lang="navAdmin">About Admin</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-slate-300" data-lang="contactUs">Contact Us</h4>
+                    <ul class="space-y-3 text-xs text-slate-400">
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-phone text-amber-500"></i><a href="tel:0987781317" class="hover:text-amber-400">0987781317</a></li>
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-envelope text-amber-500"></i><a href="mailto:mareguaragaw84@gmail.com" class="hover:text-amber-400">mareguaragaw84@gmail.com</a></li>
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-location-dot text-amber-500"></i><span data-lang="adminAddress">ቅ/ላሊበላ / ኢትዮጵያ</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-800 mt-12 pt-6 text-center text-xs text-slate-500">
+                <p>© <span id="year"></span> Abyssinia Grand. Maintained & Administered by Maregu Aragaw (ማረጉ አራጋው).</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ================= JAVASCRIPT ================= -->
+    <script>
+        // Languages Dictionary
+        const langData = {
+            en: {
+                adminSub: "Main Admin: Maregu Aragaw",
+                navHome: "Home",
+                navDestinations: "Tours & Destinations",
+                navRooms: "Rooms & Suites",
+                navExperiences: "Experiences",
+                navAdmin: "About Admin",
+                navBook: "Book Now",
+                heroBadge: "Ethiopia's Premier Hotel & Tour Operator",
+                heroTitle: "Discover the Magic of Ancient & Modern Ethiopia",
+                heroSubtitle: "Experience world-class luxury accommodations and unforgettable authentic Ethiopian tour packages.",
+                heroBtn1: "Book Accommodation",
+                heroBtn2: "Explore Tours",
+                searchType: "Service Type",
+                searchCheckin: "Check-in",
+                searchGuests: "Guests",
+                searchBtn: "Check Availability",
+                typeHotel: "Hotel Room",
+                typeTour: "Tour Package",
+                destSubtitleTag: "Historic & Natural Wonders",
+                destTitle: "Top Ethiopian Tour Packages",
+                destDesc: "Explore UNESCO heritage sites, ancient monoliths, active volcanoes, and dramatic mountain landscapes.",
+                lalibelaLoc: "Lalibela, Ethiopia",
+                tour1Title: "Lalibela Rock-Hewn Churches",
+                tour1Desc: "Experience 11 magnificent 12th-century monolithic churches carved out of solid volcanic rock.",
+                tour2Title: "Simien Mountains National Park",
+                tour2Desc: "Trek across dramatic jagged peaks and witness rare endemic Gelada Baboons and Walia Ibex.",
+                tour3Title: "Danakil Depression & Erta Ale",
+                tour3Desc: "Venture into one of the lowest and hottest places on Earth with active lava lakes.",
+                bookTour: "Book Tour",
+                roomsTag: "Unparalleled Comfort",
+                roomsTitle: "Luxury Accommodations",
+                roomsDesc: "Relax in elegantly decorated suites blending authentic Ethiopian craftsmanship with modern luxury.",
+                room1Title: "Royal Presidential Suite",
+                room2Title: "Luxury King Deluxe",
+                room3Title: "Executive Family Suite",
+                bookRoom: "Reserve Suite",
+                expTag: "Authentic Culture",
+                expTitle: "Ethiopian Cultural Experiences",
+                expDesc: "Immerse yourself in centuries-old traditions, coffee ceremonies, traditional dances, and gourmet cuisine.",
+                exp1Title: "Traditional Coffee Ceremony",
+                exp1Desc: "Experience freshly roasted coffee prepared with frankincense, popcorn, and traditional etiquette.",
+                exp2Title: "Ethiopian Culinary Delights",
+                exp2Desc: "Sample flavorful Injera with Doro Wat, Kitfo, and gourmet local dishes crafted by top chefs.",
+                exp3Title: "Live Traditional Music",
+                exp3Desc: "Enjoy evening performances featuring shoulder-dancing (Eskista) and authentic instrumentals.",
+                exp4Title: "Guided Wildlife Safaris",
+                exp4Desc: "Professional rangers leading mountain treks to view rare flora and fauna in protected parks.",
+                adminRole: "Main Admin & Founder",
+                adminHeaderTag: "Leadership & Hospitality",
+                adminBioTitle: "Welcome from Main Admin Maregu Aragaw (ማረጉ አራጋው)",
+                adminBioText: "\"Welcome to Abyssinia Grand Hotel & Tours. Managed directly by Maregu Aragaw (ማረጉ አራጋው), our vision is to give every guest an unforgettable Ethiopian holiday—combining rich historic culture with top-tier luxury accommodations, strict safety standards, and genuine Ethiopian warmth.\"",
+                adminAddress: "Q/Lalibela, Ethiopia",
+                socialTitle: "Connect Directly with Maregu Aragaw:",
+                modalTitle: "Complete Your Booking",
+                modalSub: "Reserve your hotel room or tour package in seconds.",
+                modalName: "Full Name",
+                modalPhone: "Phone Number",
+                modalPayment: "Payment Option",
+                modalSelected: "Selected Package / Room",
+                modalConfirm: "Confirm Reservation",
+                successText: "Thank you! Our reservation team managed by Maregu Aragaw will contact you shortly.",
+                footerDesc: "Your premier luxury accommodation and tour operator in Ethiopia.",
+                quickLinks: "Quick Links",
+                contactUs: "Contact Us"
+            },
+            am: {
+                adminSub: "ዋና አድሚን፡ ማረጉ አራጋው",
+                navHome: "ዋና ገጽ",
+                navDestinations: "የጉብኝት ቦታዎች",
+                navRooms: "ክፍሎች እና ሰዊቶች",
+                navExperiences: "ባህላዊ ሁነቶች",
+                navAdmin: "ስለ አድሚን",
+                navBook: "አሁኑኑ ይዘዙ",
+                heroBadge: "የኢትዮጵያ ቀዳሚ የቱሪዝም እና የሆቴል መዳረሻ",
+                heroTitle: "የጥንታዊቷንና የዘመናዊቷን ኢትዮጵያ ድንቅ ውበት ይጎብኙ",
+                heroSubtitle: "የደረጃውን የጠበቀ የሆቴል አገልግሎት እና የማይረሱ የቱሪዝም ጉዞዎችን ከአቢሲኒያ ጋር ያሳልፉ።",
+                heroBtn1: "ክፍል ለማዘዝ",
+                heroBtn2: "ቦታዎችን ለመጎብኘት",
+                searchType: "የአገልግሎት ዓይነት",
+                searchCheckin: "የመግቢያ ቀን",
+                searchGuests: "የእንግዶች ብዛት",
+                searchBtn: "ክፍት ቦታ ፈልግ",
+                typeHotel: "የሆቴል ክፍል",
+                typeTour: "የቱሪዝም ፓኬጅ",
+                destSubtitleTag: "ታሪካዊ እና የተፈጥሮ ውበቶች",
+                destTitle: "ታዋቂ የኢትዮጵያ የጉብኝት ፓኬጆች",
+                destDesc: "በዩኔስኮ የተመዘገቡ ታሪካዊ ቦታዎችን፣ የእሳተ ገሞራ ሃይቆችን እና አስደናቂ ተራሮችን ይጎብኙ።",
+                lalibelaLoc: "ቅ/ላሊበላ / ኢትዮጵያ",
+                tour1Title: "የላሊበላ ውቅር አብያተ ክርስቲያናት",
+                tour1Desc: "ከአንድ ወጥ ድንጋይ የተወቀሩትን አስደናቂ የ12ኛው ክፍለ ዘመን የላሊበላ አብያተ ክርስቲያናትን ይጎብኙ።",
+                tour2Title: "የሰሜን ተራሮች ብሔራዊ ፓርክ",
+                tour2Desc: "በሰሜን ተራሮች ብሔራዊ ፓርክ አስደናቂ የተፈጥሮ ገጽታ እና የጭላዳ ባቡን የዱር እንስሳት ጉብኝት።",
+                tour3Title: "የዳናኪል በረሃ እና ኤርታ አሌ",
+                tour3Desc: "በዓለም ላይ ዝቅተኛና ሞቃታማ ከሆኑ ቦታዎች አንዱ የሆነውን የኤርታ አሌ እሳተ ገሞራ ይጎብኙ።",
+                bookTour: "ጉዞውን ይዘዙ",
+                roomsTag: "የተሟላ ምቾት",
+                roomsTitle: "ዘመናዊ እና የቅንጦት ክፍሎች",
+                roomsDesc: "የኢትዮጵያ ባህላዊ ውበት ከዘመናዊ ምቾት ጋር የተዋሃደባቸው ክፍሎቻችን።",
+                room1Title: "የሮያል ፕሬዝዳንሻል ሰዊት",
+                room2Title: "የላክሸሪ ኪንግ ዲለክስ ክፍል",
+                room3Title: "የኤግዚክቲቭ ቤተሰብ ሰዊት",
+                bookRoom: "ክፍል ይያዙ",
+                expTag: "ባህላዊ ሁነቶች",
+                expTitle: "ባህላዊ እና የተፈጥሮ ተሞክሮዎች",
+                expDesc: "የኢትዮጵያን የዘመናት ባህል፣ የቡና ስነ-ስርዓት እና የተፈጥሮ ውበት ይለማመዱ።",
+                exp1Title: "ባህላዊ የቡና ስነ-ስርዓት",
+                exp1Desc: "በዕጣን ጭስ የተዘጋጀ እውነተኛና መዓዛው የሚስብ የቡና ስነ-ስርዓት ተሞክሮ።",
+                exp2Title: "የኢትዮጵያ ባህላዊ ምግቦች",
+                exp2Desc: "በታዋቂ ሼፎች የተዘጋጁ ጣፋጭ የኢትዮጵያ ባህላዊ ምግቦችን (እንጀራ፣ ዶሮ ወጥ ወዘተ) ይመገቡ።",
+                exp3Title: "ባህላዊ ውዝዋዜና ሙዚቃ",
+                exp3Desc: "በምሽት ፕሮግራሞቻችን ልዩ ልዩ የኢትዮጵያ ብሔር ብሔረሰቦች እስክስታ እና ውዝዋዜ ይደሰቱ።",
+                exp4Title: "የዱር እንስሳት ጉብኝት",
+                exp4Desc: "በሙያተኛ አስጎብኚዎቻችን የታገዘ የተፈጥሮ እና የዱር እንስሳት ጉብኝት።",
+                adminRole: "ዋና አድሚን እና መስራች",
+                adminHeaderTag: "አመራር እና እንግዶችን መቀበል",
+                adminBioTitle: "ከዋና አድሚን ማረጉ አራጋው የተሰጠ መልእክት",
+                adminBioText: "\"እንኳን ወደ አቢሲኒያ ግራንድ ሆቴል እና ቱሪዝም በደህና መጡ! በዋና አድሚን ማረጉ አራጋው የሚመራው ተቋማችን ለሀገር ውስጥ እና ለውጭ ሀገር እንግዶች ምርጥ የሆቴል ማረፊያ እና የጉብኝት አገልግሎቶችን በታማኝነትና በደስታ ይሰጣል።\"",
+                adminAddress: "ቅ/ላሊበላ / ኢትዮጵያ",
+                socialTitle: "ከማረጉ አራጋው ጋር በቀጥታ ይገናኙ፡",
+                modalTitle: "ቦታ ለማስያዝ ቅጹን ይሙሉ",
+                modalSub: " በጥቂት ሰከንዶች ውስጥ የሆቴል ክፍል ወይም የቱር ፓኬጅዎን ያረጋግጡ።",
+                modalName: "ሙሉ ስም",
+                modalPhone: "ስልክ ቁጥር",
+                modalPayment: "የክፍያ መንገድ",
+                modalSelected: "የመረጡት አገልግሎት",
+                modalConfirm: "ትዕዛዙን አረጋግጥ",
+                successText: "እናመሰግናለን! በማረጉ አራጋው የሚመራው ቡድናችን በቅርብ ጊዜ ያነጋግርዎታል።",
+                footerDesc: "በኢትዮጵያ ውስጥ ተመራጭ የሆቴል እና የቱሪዝም አደራጅ።",
+                quickLinks: "ፈጣን ማገናኛዎች",
+                contactUs: "አድራሻችን"
+            }
+        };
+
+        let currentLang = 'en';
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'am' : 'en';
+            
+            // Update UI elements with data-lang attribute
+            document.querySelectorAll('[data-lang]').forEach(element => {
+                const key = element.getAttribute('data-lang');
+                if (langData[currentLang][key]) {
+                    element.textContent = langData[currentLang][key];
+                }
+            });
+
+            // Update Lang Switcher labels
+            document.getElementById('langLabel').textContent = currentLang === 'en' ? 'አማርኛ' : 'English';
+            document.getElementById('mobileLangLabel').textContent = currentLang === 'en' ? 'አማ' : 'EN';
+        }
+
+        // Dark / Light Mode Toggle
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const themeIcon = document.getElementById('themeIcon');
+            const mobileThemeIcon = document.getElementById('mobileThemeIcon');
+
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                themeIcon.className = 'fa-solid fa-moon';
+                mobileThemeIcon.className = 'fa-solid fa-moon';
+            } else {
+                html.classList.add('dark');
+                themeIcon.className = 'fa-solid fa-sun';
+                mobileThemeIcon.className = 'fa-solid fa-sun';
+            }
+        }
+
+        // Mobile Menu Drawer Toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileMenuIcon = document.getElementById('mobileMenuIcon');
+
+            if (mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.remove('hidden');
+                mobileMenuIcon.className = 'fa-solid fa-xmark';
+            } else {
+                mobileMenu.classList.add('hidden');
+                mobileMenuIcon.className = 'fa-solid fa-bars';
+            }
+        }
+
+        // Modal Controls
+        function openBookingModal(serviceName) {
+            document.getElementById('selectedPackageInput').value = serviceName || 'General Request';
+            document.getElementById('modalFormContainer').classList.remove('hidden');
+            document.getElementById('modalSuccessMsg').classList.add('hidden');
+            document.getElementById('bookingModal').classList.remove('hidden');
+        }
+
+        function closeBookingModal() {
+            document.getElementById('bookingModal').classList.add('hidden');
+        }
+
+        function handleModalSubmit(e) {
+            e.preventDefault();
+            document.getElementById('modalFormContainer').classList.add('hidden');
+            document.getElementById('modalSuccessMsg').classList.remove('hidden');
+        }
+
+        // Auto Set Year
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
